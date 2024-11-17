@@ -3,23 +3,30 @@ const LocalStrategy = require("passport-local").Strategy;
 const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
+const bcrypt = require("bcryptjs");
+const db = require("../models/db");
 require("dotenv").config();
 
 passport.use(
   new LocalStrategy(
     {
-      username: "username",
-      password: "password",
+      usernameField: "username",
+      passwordField: "password",
     },
-    function (username, password, cb) {
-      return UserModel.findOne({ username, password })
-        .then((user) => {
-          if (!user) {
-            return cb(null, false, { message: "Incorrect email or password." });
-          }
-          return cb(null, user, { message: "Logged in successfully!" });
-        })
-        .catch((err) => cb(err));
+    async function (username, password, cb) {
+      try {
+        const user = await db.findOne({ username });
+        if (!user) {
+          return cb(null, false, { message: "Incorrect username." });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+          return cb(null, false, { message: "Incorrect password." });
+        }
+        return cb(null, user, { message: "Logged in successfully!" });
+      } catch (err) {
+        return cb(err);
+      }
     }
   )
 );
