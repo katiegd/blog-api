@@ -5,7 +5,7 @@ const router = Router();
 // Authorization required on this route
 
 router.get("/dashboard", (req, res) => {
-  res.send("this is the user route");
+  res.send(req.user);
 });
 
 router.get("/new-post", (req, res) => {

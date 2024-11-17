@@ -1,13 +1,11 @@
 const express = require("express");
 const indexRouter = require("./routes/index.js");
-const path = require("node:path");
-const cors = require("cors");
+
 require("dotenv").config();
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 // Need to set up authentication middleware with jwt and passport
 
