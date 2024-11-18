@@ -30,6 +30,7 @@ model Post {
   updatedAt DateTime @default(now())
   title String 
   content String
+  tags String[]
   published Boolean @default(false)
   comments Comment[]
 }

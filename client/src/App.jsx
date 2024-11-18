@@ -1,41 +1,63 @@
-import { useState, useEffect, useDebugValue } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
+import Navbar from "./Nav";
+import { useNavigate } from "react-router-dom";
+import Posts from "./Posts";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  async function fetchAPI() {
-    const response = await fetch("http://localhost:3000/login");
-    console.log(response);
-  }
+  const navigate = useNavigate();
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [userData, setUserData] = useState("");
 
   useEffect(() => {
-    fetchAPI();
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user = JSON.parse(localStorage.getItem("user"));
+      setUserLoggedIn(true);
+      setUserData(user);
+    } else {
+      setUserLoggedIn(false);
+    }
   }, []);
+
+  function logOut() {
+    if (userLoggedIn) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      setUserLoggedIn(false);
+
+      navigate("/");
+    }
+  }
+  // Set conditional render if logged in to show the User Dashboard, or the posts homepage if not logged in.
+
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container">
+        {userLoggedIn ? (
+          <>
+            {" "}
+            <Navbar
+              userLoggedIn={userLoggedIn}
+              setUserLoggedIn={setUserLoggedIn}
+              userData={userData}
+              logOut={logOut}
+            />
+            <div>Welcome, to your dashboard, {userData.username}.</div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <Navbar
+              userLoggedIn={userLoggedIn}
+              setUserLoggedIn={setUserLoggedIn}
+              userData={userData}
+              logOut={logOut}
+            />
+            <Posts />
+          </>
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }

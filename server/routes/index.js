@@ -10,7 +10,7 @@ const { Router } = require("express");
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.send("hi");
+  res.send("Hi");
 });
 
 router.use("/login", loginRouter);
@@ -21,5 +21,15 @@ router.use(
   passport.authenticate("jwt", { session: false }),
   userRouter
 );
+router.post("/logout", (req, res, next) => {
+  console.log(req);
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    console.log(req, "Successfully logged out!");
+    res.redirect("/");
+  });
+});
 
 module.exports = router;

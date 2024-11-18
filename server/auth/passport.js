@@ -4,7 +4,7 @@ const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require("bcryptjs");
-const db = require("../models/db");
+const db = require("../models/queries");
 require("dotenv").config();
 
 passport.use(
@@ -15,7 +15,8 @@ passport.use(
     },
     async function (username, password, cb) {
       try {
-        const user = await db.findOne({ username });
+        const user = await db.findUsername(username);
+
         if (!user) {
           return cb(null, false, { message: "Incorrect username." });
         }
@@ -38,7 +39,8 @@ passport.use(
       secretOrKey: process.env.JWT_SECRET,
     },
     function (jwtPayload, cb) {
-      return UserModel.findOneById(jwtPayload.id)
+      return db
+        .findUserById(jwtPayload.id)
         .then((user) => {
           return cb(null, user);
         })

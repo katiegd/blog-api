@@ -1,9 +1,11 @@
 const { Router } = require("express");
+const db = require("../models/queries.js");
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.send("this is the post route");
+router.get("/", async (req, res) => {
+  const posts = await db.getAllPosts();
+  res.send(posts);
 });
 
 router.post("/", (req, res) => {
