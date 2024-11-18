@@ -5,6 +5,10 @@ const router = Router();
 
 router.get("/", signUpController.signUpUserGet);
 
-router.post("/", signUpController.signUpUserPost);
+router.post(
+  "/",
+  signUpController.validateSignup,
+  signUpController.signUpUserPost
+);
 
 module.exports = router;

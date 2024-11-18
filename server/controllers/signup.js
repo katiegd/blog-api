@@ -15,12 +15,12 @@ const validateSignup = [
   body("password")
     .isLength({ min: 8 })
     .withMessage("Password must be at least 8 characters long."),
-  body("password2").custom((value, { req }) => {
-    if (value !== req.body.password) {
-      throw new Error("Passwords do not match.");
-    }
-    return true;
-  }),
+  // body("password2").custom((value, { req }) => {
+  //   if (value !== req.body.password) {
+  //     throw new Error("Passwords do not match.");
+  //   }
+  //   return true;
+  // }),
 ];
 
 async function signUpUserGet(req, res, next) {
@@ -47,6 +47,7 @@ async function signUpUserPost(req, res, next) {
 }
 
 module.exports = {
+  validateSignup,
   signUpUserGet,
   signUpUserPost,
 };
