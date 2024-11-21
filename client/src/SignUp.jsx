@@ -56,7 +56,6 @@ const SignUp = () => {
 
   return (
     <div className="container">
-      <Navbar />
       <h1>Hello from the sign up page!</h1>
       <form onSubmit={handleSubmit} className="sign-up-form">
         <label htmlFor="username">Username:</label>

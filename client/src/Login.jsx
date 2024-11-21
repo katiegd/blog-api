@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Navbar from "./Nav";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const { setUserLoggedIn, setUserData } = useOutletContext();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -38,6 +39,10 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      console.log(data.token);
+      setUserLoggedIn(true);
+      setUserData(data.user);
+
       navigate(`/${username}/dashboard`);
     } catch (error) {
       setError(error);
@@ -46,7 +51,6 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Navbar />
       <h1>Hello from login page!</h1>
       <form onSubmit={handleSubmit} className="sign-up-form">
         <label htmlFor="username">Username:</label>

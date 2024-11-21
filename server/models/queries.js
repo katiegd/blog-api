@@ -32,9 +32,24 @@ async function getAllPosts() {
   });
 }
 
+async function addNewPost(title, content, tags, published, userId) {
+  return prisma.post.create({
+    data: {
+      title,
+      content,
+      tags,
+      published,
+      user: {
+        connect: { id: userId },
+      },
+    },
+  });
+}
+
 module.exports = {
   findUsername,
   findUserById,
   createUser,
   getAllPosts,
+  addNewPost,
 };

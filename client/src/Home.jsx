@@ -36,24 +36,12 @@ function App() {
       <div className="container">
         {userLoggedIn ? (
           <>
-            {" "}
-            <Navbar
-              userLoggedIn={userLoggedIn}
-              setUserLoggedIn={setUserLoggedIn}
-              userData={userData}
-              logOut={logOut}
-            />
             <div>Welcome, to your dashboard, {userData.username}.</div>
+            <Posts />
           </>
         ) : (
           <>
             {" "}
-            <Navbar
-              userLoggedIn={userLoggedIn}
-              setUserLoggedIn={setUserLoggedIn}
-              userData={userData}
-              logOut={logOut}
-            />
             <Posts />
           </>
         )}
