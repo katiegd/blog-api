@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import Navbar from "./Nav";
-import { useOutletContext } from "react-router-dom";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  const { userLoggedIn, userData, setUserLoggedIn, logOut } =
-    useOutletContext();
 
   useEffect(() => {
     async function getPostsAPI() {
@@ -31,6 +27,7 @@ const Posts = () => {
 
     getPostsAPI();
   }, []);
+
   return (
     <>
       <div className="container">
@@ -41,6 +38,7 @@ const Posts = () => {
           ) : (
             posts.map((post, index) => (
               <div key={index} className="post-tile">
+                By: <p className="post-author">{post.user.username}</p>
                 <h3>{post.title}</h3>
                 <div className="post-tags">
                   {post.tags.map((tag, tagIndex) => (

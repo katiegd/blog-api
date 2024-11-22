@@ -29,6 +29,21 @@ async function getAllPosts() {
     where: {
       published: true,
     },
+    include: {
+      user: {
+        select: {
+          username: true,
+        },
+      },
+    },
+  });
+}
+
+async function getPostsByUser(userId) {
+  return prisma.post.findMany({
+    where: {
+      userId: userId,
+    },
   });
 }
 
@@ -52,4 +67,5 @@ module.exports = {
   createUser,
   getAllPosts,
   addNewPost,
+  getPostsByUser,
 };

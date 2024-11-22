@@ -9,14 +9,7 @@ router.get("/", (req, res) => {
   res.redirect("/dashboard");
 });
 
-router.get("/dashboard", (req, res) => {
-  const userData = req.user;
-  const user = {
-    id: userData.id,
-    username: userData.username,
-  };
-  res.send(user);
-});
+router.get("/dashboard", userPostCtrl.getUserPosts);
 
 router.get("/new-post", (req, res) => {
   res.send("this is the new post route");
