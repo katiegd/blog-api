@@ -39,6 +39,21 @@ async function getAllPosts() {
   });
 }
 
+async function getPostById(postId) {
+  return prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+    include: {
+      user: {
+        select: {
+          username: true,
+        },
+      },
+    },
+  });
+}
+
 async function getPostsByUser(userId) {
   return prisma.post.findMany({
     where: {
@@ -61,11 +76,45 @@ async function addNewPost(title, content, tags, published, userId) {
   });
 }
 
+async function deletePostFromDb(postId) {
+  await prisma.post.delete({
+    where: {
+      id: postId,
+    },
+  });
+}
+
+async function getPostByIdForEdit(postId) {
+  return prisma.post.findFirst({
+    where: {
+      id: postId,
+    },
+  });
+}
+
+async function updatePostById(postId, title, content, tags, published) {
+  await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      title,
+      content,
+      tags,
+      published,
+    },
+  });
+}
+
 module.exports = {
   findUsername,
   findUserById,
   createUser,
   getAllPosts,
+  getPostById,
   addNewPost,
   getPostsByUser,
+  deletePostFromDb,
+  getPostByIdForEdit,
+  updatePostById,
 };

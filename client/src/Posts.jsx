@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Posts = () => {
+  const { BASE_URL } = useOutletContext();
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getPostsAPI() {
       try {
-        const response = await fetch("http://localhost:3000/posts", {
+        const response = await fetch(`${BASE_URL}/posts`, {
           method: "GET",
           headers: {
             "Content-type": "application/json",
@@ -39,7 +42,9 @@ const Posts = () => {
             posts.map((post, index) => (
               <div key={index} className="post-tile">
                 By: <p className="post-author">{post.user.username}</p>
-                <h3>{post.title}</h3>
+                <Link to={`/posts/${post.id}`} className="post-link">
+                  <h3>{post.title}</h3>
+                </Link>
                 <div className="post-tags">
                   {post.tags.map((tag, tagIndex) => (
                     <span className="tag" key={tagIndex}>

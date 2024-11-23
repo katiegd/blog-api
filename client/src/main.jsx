@@ -9,6 +9,8 @@ import Dashboard from "./Dashboard.jsx";
 import Posts from "./Posts.jsx";
 import Layout from "./Layout.jsx";
 import NewPost from "./NewPost.jsx";
+import PostPage from "./PostPage.jsx";
+import EditPost from "./EditPost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,21 +30,24 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: ":username",
-        children: [
-          {
-            path: "dashboard",
-            element: <Dashboard />,
-          },
-          {
-            path: "new-post",
-            element: <NewPost />,
-          },
-        ],
+        path: ":username/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: ":username/new-post",
+        element: <NewPost />,
+      },
+      {
+        path: ":username/edit-post/:postId",
+        element: <EditPost />,
       },
       {
         path: "posts",
         element: <Posts />,
+      },
+      {
+        path: "posts/:postId",
+        element: <PostPage />,
       },
     ],
   },

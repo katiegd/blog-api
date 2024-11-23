@@ -74,3 +74,47 @@
   font-size: 0.6rem;
   font-weight: 600;
 }
+
+.controls {
+  display: flex;
+  border: 1px solid #ccc;
+  border-top: 0;
+  padding: 10px;
+}
+
+.controls-right {
+  margin-left: auto;
+}
+
+.state {
+  margin: 10px 0;
+  font-family: monospace;
+}
+
+.state-title {
+  color: #999;
+  text-transform: uppercase;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+input,
+.ql-editor {
+  padding: 4px;
+  font-size: 14px;
+}
+
+#editor {
+  height: 130px;
+}

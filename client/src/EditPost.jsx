@@ -1,12 +1,13 @@
-import { useState, useRef } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 
 import QuillEditor from "./QuillEditor";
 import Quill from "quill";
 
-const NewPost = () => {
+const EditPost = () => {
   const navigate = useNavigate();
   const { userData, BASE_URL } = useOutletContext();
+  const { postId } = useParams();
 
   const [range, setRange] = useState();
   const [lastChange, setLastChange] = useState();
@@ -24,14 +25,38 @@ const NewPost = () => {
 
   const quillRef = useRef(null);
 
-  function initializeQuill() {
-    if (!quillRef.current) {
-      const editor = new Quill("#editor-container", {
-        theme: "snow",
-      });
-      quillRef.current = editor;
+  useEffect(() => {
+    async function getPostInfo() {
+      try {
+        const response = await fetch(
+          `${BASE_URL}/${userData.username}/edit-post/${postId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          }
+        );
+        const data = await response.json();
+
+        setContent(data.post.content);
+        setTitle(data.post.title);
+        setPublished(data.post.published);
+
+        const tagString = data.post.tags.join(", ");
+        setTags(tagString);
+
+        const quill = quillRef.current;
+        quill.root.innerHTML = data.post.content;
+      } catch (err) {
+        console.error(err);
+      }
     }
-  }
+
+    getPostInfo();
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -43,21 +68,24 @@ const NewPost = () => {
     const content = quillRef.current?.root.innerHTML;
 
     try {
-      const response = await fetch(`${BASE_URL}/${user}/new-post`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          title,
-          content,
-          tags: tagsArray,
-          published,
-          userId,
-        }),
-      });
+      const response = await fetch(
+        `${BASE_URL}/${userData.username}/edit-post/${postId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            title,
+            content,
+            tags: tagsArray,
+            published,
+            userId,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -105,6 +133,7 @@ const NewPost = () => {
           onTextChange={setLastChange}
           id="content"
           name="content"
+          value={content}
         />
         <label htmlFor="tags">Tags:</label>
         <input
@@ -130,4 +159,4 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+export default EditPost;

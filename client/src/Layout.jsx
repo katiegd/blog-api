@@ -6,6 +6,7 @@ export default function Layout() {
   const navigate = useNavigate();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [userData, setUserData] = useState("");
+  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -29,7 +30,7 @@ export default function Layout() {
   }
 
   return (
-    <div className="container">
+    <div className="main-container">
       <Navbar
         userLoggedIn={userLoggedIn}
         setUserLoggedIn={setUserLoggedIn}
@@ -39,6 +40,7 @@ export default function Layout() {
 
       <Outlet
         context={{
+          BASE_URL,
           userLoggedIn,
           setUserLoggedIn,
           setUserData,

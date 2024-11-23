@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Navbar from "./Nav";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -83,7 +82,7 @@ const SignUp = () => {
           value={password2}
           onChange={handleChange}
         />
-        {password2 && password && passwordsMatch ? (
+        {/* {password2 && password && passwordsMatch ? (
           <div className="passwords-match">Passwords match.</div>
         ) : password2 && !(password && password2 && passwordsMatch) ? (
           <div className="passwords-no-match">Passwords do not match.</div>
@@ -92,7 +91,7 @@ const SignUp = () => {
           <ul>
             error.map((err, index) => (<li key={index}>{err.msg}</li>))
           </ul>
-        ) : null}
+        ) : null} */}
         <button type="submit">Submit</button>
       </form>{" "}
     </div>

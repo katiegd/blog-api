@@ -12,4 +12,10 @@ router.post("/", (req, res) => {
   res.send("post posted");
 });
 
+router.get("/:postId", async (req, res) => {
+  const id = parseInt(req.params.postId);
+  const post = await db.getPostById(id);
+  res.send(post);
+});
+
 module.exports = router;

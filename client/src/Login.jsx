@@ -7,7 +7,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { setUserLoggedIn, setUserData } = useOutletContext();
+  const { setUserLoggedIn, setUserData, BASE_URL } = useOutletContext();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
