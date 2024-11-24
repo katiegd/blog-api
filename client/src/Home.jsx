@@ -23,18 +23,7 @@ function App() {
 
   return (
     <>
-      <div className="container">
-        {userLoggedIn ? (
-          <>
-            <div>Welcome, to your dashboard, {userData.username}.</div>
-            <Posts />
-          </>
-        ) : (
-          <>
-            <Posts />
-          </>
-        )}
-      </div>
+      <Posts />
     </>
   );
 }

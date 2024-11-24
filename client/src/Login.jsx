@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Navbar from "./Nav";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import "../src/css/SignUpLogIn.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,7 +39,6 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      console.log(data.token);
       setUserLoggedIn(true);
       setUserData(data.user);
 
@@ -51,27 +50,29 @@ const Login = () => {
 
   return (
     <div className="container">
-      <h1>Hello from login page!</h1>
-      <form onSubmit={handleSubmit} className="sign-up-form">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="username"
-          value={username}
-          onChange={handleChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>{" "}
+      <div className="container-wrapper">
+        <h3>Log In</h3>
+        <form onSubmit={handleSubmit} className="sign-up-form">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="username"
+            value={username}
+            onChange={handleChange}
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={handleChange}
+          />
+          <button type="submit">Submit</button>
+        </form>{" "}
+      </div>
     </div>
   );
 };

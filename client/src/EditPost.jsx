@@ -95,7 +95,6 @@ const EditPost = () => {
         return;
       }
 
-      console.log("Successful post!", data);
       navigate(`/${user}/dashboard`);
     } catch (error) {
       console.error(error);

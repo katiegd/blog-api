@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import panda from "./assets/pandaLogo.svg";
+import "../src/css/NavBar.css";
 
 const Navbar = ({ userLoggedIn, userData, logOut }) => {
   Navbar.propTypes = {
@@ -16,24 +18,31 @@ const Navbar = ({ userLoggedIn, userData, logOut }) => {
   }
 
   return (
-    <div className="navbar">
-      {userLoggedIn ? (
-        <>
-          <Link to={`/${name}/dashboard`}>Dashboard</Link>
-          <Link to="/posts">Posts</Link>
-          {name && <h3>{name}</h3>}{" "}
-          <a href="/" onClick={handleLogout}>
-            Log Out
-          </a>{" "}
-        </>
-      ) : (
-        <>
-          <Link to="/">Home</Link>
-          <Link to="/posts">Posts</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/login">Log In</Link>
-        </>
-      )}
+    <div className="navbar-wrapper">
+      <div className="navbar">
+        <div className="logo">
+          <img src={panda} className="logo" alt="" /> thought panda
+        </div>
+        <div className="links">
+          {userLoggedIn ? (
+            <>
+              <Link to={`/${name}/dashboard`}>Dashboard</Link>
+              <Link to="/posts">Posts</Link>
+              <a href="/" onClick={handleLogout}>
+                Log Out
+              </a>{" "}
+              {name && <h4>{name}</h4>}{" "}
+            </>
+          ) : (
+            <>
+              <Link to="/">Home</Link>
+              <Link to="/posts">Posts</Link>
+              <Link to="/signup">Sign Up</Link>
+              <Link to="/login">Log In</Link>
+            </>
+          )}
+        </div>{" "}
+      </div>
     </div>
   );
 };

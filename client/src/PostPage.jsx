@@ -1,3 +1,4 @@
+import "../src/css/Posts.css";
 import { useCallback, useEffect, useState } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 

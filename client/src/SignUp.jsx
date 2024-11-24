@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../src/css/SignUpLogIn.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -55,45 +56,47 @@ const SignUp = () => {
 
   return (
     <div className="container">
-      <h1>Hello from the sign up page!</h1>
-      <form onSubmit={handleSubmit} className="sign-up-form">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="username"
-          value={username}
-          onChange={handleChange}
-        />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={handleChange}
-        />
-        <label htmlFor="password2">Confirm Password:</label>
-        <input
-          type="password"
-          name="password2"
-          id="password2"
-          value={password2}
-          onChange={handleChange}
-        />
-        {/* {password2 && password && passwordsMatch ? (
-          <div className="passwords-match">Passwords match.</div>
-        ) : password2 && !(password && password2 && passwordsMatch) ? (
-          <div className="passwords-no-match">Passwords do not match.</div>
-        ) : null}
-        {error && Array.isArray(error) ? (
-          <ul>
-            error.map((err, index) => (<li key={index}>{err.msg}</li>))
-          </ul>
-        ) : null} */}
-        <button type="submit">Submit</button>
-      </form>{" "}
+      <div className="container-wrapper">
+        <h3>Sign Up</h3>
+        <form onSubmit={handleSubmit} className="sign-up-form">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="username"
+            value={username}
+            onChange={handleChange}
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={handleChange}
+          />
+          <label htmlFor="password2">Confirm Password:</label>
+          <input
+            type="password"
+            name="password2"
+            id="password2"
+            value={password2}
+            onChange={handleChange}
+          />
+          {password2 && password && passwordsMatch ? (
+            <div className="passwords-match">Passwords match.</div>
+          ) : password2 && !(password && password2 && passwordsMatch) ? (
+            <div className="passwords-no-match">Passwords do not match.</div>
+          ) : null}
+          {error && Array.isArray(error) ? (
+            <ul>
+              error.map((err, index) => (<li key={index}>{err.msg}</li>))
+            </ul>
+          ) : null}
+          <button type="submit">Submit</button>
+        </form>{" "}
+      </div>
     </div>
   );
 };

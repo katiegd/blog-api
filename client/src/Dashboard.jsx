@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { useOutletContext, Link, useNavigate } from "react-router-dom";
+import "../src/css/Dashboard.css";
+import deleteIcon from "./assets/delete.svg";
+import editIcon from "./assets/edit.svg";
 
 const Dashboard = () => {
   const { userData, BASE_URL, setUserLoggedIn, logOut } = useOutletContext();
@@ -14,7 +17,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     async function getUserPostsAPI() {
-      console.log(token);
       try {
         const response = await fetch(`${BASE_URL}/${name}/dashboard`, {
           method: "GET",
@@ -69,65 +71,68 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div className="header-posts-btn">
-        <h2>Your Posts</h2>
-        <Link to={`/${name}/new-post`} className="new-post-btn">
-          New Post
-        </Link>
-      </div>
-      <div className="user-post-container">
-        {posts.length < 1 ? (
-          <p>You don't have any posts yet!</p>
-        ) : (
-          posts.map((post, index) => (
-            <div key={index} className="user-posts">
-              <Link to={`/posts/${post.id}`}>
-                <h3>{post.title}</h3>
-              </Link>
-              <div className="post-tags">
-                {post.tags.map((tag, tagIndex) => (
-                  <span className="tag" key={tagIndex}>
-                    #{tag}
-                  </span>
-                ))}
+      <div className="container-wrapper">
+        <div className="header-posts-btn">
+          <h2>Your Posts</h2>
+          <Link to={`/${name}/new-post`} className="new-post-btn">
+            New Post
+          </Link>
+        </div>
+        <div className="user-post-container">
+          {posts.length < 1 ? (
+            <p>You don't have any posts yet!</p>
+          ) : (
+            posts.map((post, index) => (
+              <div key={index} className="user-posts">
+                <Link to={`/posts/${post.id}`}>
+                  <span className="post-title">{post.title}</span>
+                </Link>
+                <div className="post-tags">
+                  {post.tags.map((tag, tagIndex) => (
+                    <span className="tag" key={tagIndex}>
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="action-buttons">
+                  <button className="edit-post-btn action-btn">
+                    <Link to={`/${name}/edit-post/${post.id}`}>
+                      <img src={editIcon} alt="" />
+                    </Link>
+                  </button>
+                  {deleteBtn ? (
+                    <>
+                      <button
+                        id={post.id}
+                        onClick={() => {
+                          deletePost(post.id);
+                        }}
+                        className="confirm-delete-btn action-btn"
+                      >
+                        <img src={deleteIcon} alt="" />
+                      </button>
+                      <button
+                        id={post.id}
+                        onClick={() => setDeleteBtn(false)}
+                        className="cancel-delete-btn action-btn"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      id={post.id}
+                      onClick={() => setDeleteBtn(true)}
+                      className="delete-btn action-btn"
+                    >
+                      <img src={deleteIcon} alt="" />
+                    </button>
+                  )}
+                </div>
               </div>
-              <Link
-                to={`/${name}/edit-post/${post.id}`}
-                className="edit-post-btn"
-              >
-                Edit
-              </Link>
-              {deleteBtn ? (
-                <>
-                  <button
-                    id={post.id}
-                    onClick={() => {
-                      deletePost(post.id);
-                    }}
-                    className="confirm-delete-btn"
-                  >
-                    Confirm Delete
-                  </button>
-                  <button
-                    id={post.id}
-                    onClick={() => setDeleteBtn(false)}
-                    className="cancel-delete-btn"
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <button
-                  id={post.id}
-                  onClick={() => setDeleteBtn(true)}
-                  className="delete-btn"
-                >
-                  Delete
-                </button>
-              )}
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

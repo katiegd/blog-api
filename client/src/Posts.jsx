@@ -32,30 +32,55 @@ const Posts = () => {
     getPostsAPI();
   }, []);
 
+  function convertDateTime(isoDateString) {
+    const date = new Date(isoDateString);
+
+    const options = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZoneName: "short",
+    };
+
+    return date.toLocaleDateString("en-US", options);
+  }
+
   return (
     <>
       <div className="container">
-        <h2>Posts</h2>
-        <div className="post-container">
-          {error ? (
-            <p>{error}</p>
-          ) : (
-            posts.map((post, index) => (
-              <div key={index} className="post-tile">
-                By: <p className="post-author">{post.user.username}</p>
-                <Link to={`/posts/${post.id}`} className="post-link">
-                  <h3>{post.title}</h3>
-                </Link>
-                <div className="post-tags">
-                  {post.tags.map((tag, tagIndex) => (
-                    <span className="tag" key={tagIndex}>
-                      #{tag}
+        <div className="post-container-wrapper">
+          <h2>Posts</h2>
+          <div className="post-container">
+            {error ? (
+              <p>{error}</p>
+            ) : (
+              posts.map((post, index) => (
+                <div key={index} className="post-tile">
+                  {" "}
+                  <p className="post-author">
+                    Written by{" "}
+                    <span className="author-name">{post.user.username}</span> on{" "}
+                    <span className="date-time">
+                      {convertDateTime(post.createdAt)}
                     </span>
-                  ))}
+                  </p>
+                  <Link to={`/posts/${post.id}`} className="post-link">
+                    <h3>{post.title}</h3>
+                  </Link>
+                  <div className="post-tags">
+                    {post.tags.map((tag, tagIndex) => (
+                      <span className="tag" key={tagIndex}>
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
         </div>
       </div>
     </>
