@@ -19,15 +19,6 @@ function App() {
     }
   }, []);
 
-  function logOut() {
-    if (userLoggedIn) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      setUserLoggedIn(false);
-
-      navigate("/");
-    }
-  }
   // Set conditional render if logged in to show the User Dashboard, or the posts homepage if not logged in.
 
   return (
@@ -40,7 +31,6 @@ function App() {
           </>
         ) : (
           <>
-            {" "}
             <Posts />
           </>
         )}

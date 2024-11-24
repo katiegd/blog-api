@@ -12,6 +12,7 @@ const Posts = () => {
       try {
         const response = await fetch(`${BASE_URL}/posts`, {
           method: "GET",
+          mode: "cors",
           headers: {
             "Content-type": "application/json",
           },

@@ -50,6 +50,17 @@ async function getPostById(postId) {
           username: true,
         },
       },
+      comments: {
+        select: {
+          content: true,
+          createdAt: true,
+          user: {
+            select: {
+              username: true,
+            },
+          },
+        },
+      },
     },
   });
 }
@@ -106,6 +117,22 @@ async function updatePostById(postId, title, content, tags, published) {
   });
 }
 
+async function addComment(comment, postId, userId) {
+  await prisma.comment.create({
+    data: {
+      content: comment,
+      post: {
+        connect: { id: postId },
+      },
+      user: userId
+        ? {
+            connect: { id: userId },
+          }
+        : undefined,
+    },
+  });
+}
+
 module.exports = {
   findUsername,
   findUserById,
@@ -117,4 +144,5 @@ module.exports = {
   deletePostFromDb,
   getPostByIdForEdit,
   updatePostById,
+  addComment,
 };
