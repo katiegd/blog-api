@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { useOutletContext, Link } from "react-router-dom";
+import { useOutletContext, Link, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const { userData, BASE_URL } = useOutletContext();
+  const { userData, BASE_URL, setUserLoggedIn, logOut } = useOutletContext();
   const name = userData.username;
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [deleteBtn, setDeleteBtn] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     async function getUserPostsAPI() {
+      console.log(token);
       try {
         const response = await fetch(`${BASE_URL}/${name}/dashboard`, {
           method: "GET",
@@ -22,7 +24,11 @@ const Dashboard = () => {
           },
           credentials: "include",
         });
-        if (!response.ok) {
+        if (response.status === 401) {
+          setUserLoggedIn(false);
+          logOut();
+          navigate("/login");
+        } else if (!response.ok) {
           throw new Error("Failed to fetch posts.");
         }
         const data = await response.json();

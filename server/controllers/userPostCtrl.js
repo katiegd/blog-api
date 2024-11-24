@@ -24,11 +24,15 @@ async function newPostPost(req, res) {
 
 async function getUserPosts(req, res) {
   const userData = req.user;
-  try {
-    const userPosts = await db.getPostsByUser(userData.id);
-    res.status(200).json(userPosts);
-  } catch (err) {
-    console.error(err);
+  if (!userData) {
+    res.redirect("/login");
+  } else {
+    try {
+      const userPosts = await db.getPostsByUser(userData.id);
+      res.status(200).json(userPosts);
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 
