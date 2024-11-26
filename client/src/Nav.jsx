@@ -34,7 +34,6 @@ const Navbar = ({ userLoggedIn, userData, logOut }) => {
             </>
           ) : (
             <>
-              <Link to="/">Home</Link>
               <Link to="/posts">Posts</Link>
               <Link to="/signup">Sign Up</Link>
               <Link to="/login">Log In</Link>
