@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [deleteBtn, setDeleteBtn] = useState(null);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(null);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -69,6 +69,26 @@ const Dashboard = () => {
     }
   }
 
+  function windowEventListener(e) {
+    if (!e.target.closest(".action-buttons")) {
+      setDeleteBtn(null);
+      window.removeEventListener("click", windowEventListener);
+    }
+  }
+
+  function handleDeleteButtonClick(postId) {
+    setDeleteBtn(postId);
+    setTimeout(() => {
+      window.addEventListener("click", windowEventListener);
+    }, 0);
+  }
+
+  function handleConfirmDelete(postId) {
+    deletePost(postId);
+    setDeleteBtn(null);
+    window.removeEventListener("click", windowEventListener);
+  }
+
   return (
     <div className="container">
       <div className="container-wrapper">
@@ -84,45 +104,46 @@ const Dashboard = () => {
           ) : (
             posts.map((post, index) => (
               <div key={index} className="user-posts">
-                <Link to={`/posts/${post.id}`}>
-                  <span className="post-title">{post.title}</span>
-                </Link>
-                <div className="post-tags">
-                  {post.tags.map((tag, tagIndex) => (
-                    <span className="tag" key={tagIndex}>
-                      #{tag}
-                    </span>
-                  ))}
+                <div className="post-info">
+                  <Link to={`/posts/${post.id}`}>
+                    <span className="post-title">{post.title}</span>
+                  </Link>
+                  <div className="post-tags">
+                    {post.tags.map((tag, tagIndex) => (
+                      <span className="tag" key={tagIndex}>
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <div className="action-buttons">
+                  {post.published ? (
+                    <p className="published-status published">Published</p>
+                  ) : (
+                    <p className="published-status not-published">
+                      Not Published
+                    </p>
+                  )}
+
                   <button className="edit-post-btn action-btn">
                     <Link to={`/${name}/edit-post/${post.id}`}>
                       <img src={editIcon} alt="" />
                     </Link>
                   </button>
-                  {deleteBtn ? (
+                  {deleteBtn === post.id ? (
                     <>
                       <button
                         id={post.id}
-                        onClick={() => {
-                          deletePost(post.id);
-                        }}
+                        onClick={() => handleConfirmDelete(post.id)}
                         className="confirm-delete-btn action-btn"
                       >
                         <img src={deleteIcon} alt="" />
-                      </button>
-                      <button
-                        id={post.id}
-                        onClick={() => setDeleteBtn(false)}
-                        className="cancel-delete-btn action-btn"
-                      >
-                        Cancel
                       </button>
                     </>
                   ) : (
                     <button
                       id={post.id}
-                      onClick={() => setDeleteBtn(true)}
+                      onClick={() => handleDeleteButtonClick(post.id)}
                       className="delete-btn action-btn"
                     >
                       <img src={deleteIcon} alt="" />

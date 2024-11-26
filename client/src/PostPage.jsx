@@ -71,47 +71,50 @@ const PostPage = () => {
   return (
     <>
       <div className="container">
-        <h2>{post.title}</h2>
-        <div className="post-container">
-          <div className="post-content">
-            By:{" "}
-            <p className="post-author">
-              {post.user?.username ?? "Unavailable"}
-            </p>
-            <div className="post-tags">
-              {post.tags?.map((tag, tagIndex) => (
-                <span className="tag" key={tagIndex}>
-                  #{tag}
-                </span>
-              ))}
+        <div className="container-wrapper">
+          {" "}
+          <h2>{post.title}</h2>
+          <div className="post-container">
+            <div className="post-content">
+              By:{" "}
+              <p className="post-author">
+                {post.user?.username ?? "Unavailable"}
+              </p>
+              <div className="post-tags">
+                {post.tags?.map((tag, tagIndex) => (
+                  <span className="tag" key={tagIndex}>
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+              <div
+                className="post-content"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              ></div>
             </div>
-            <div
-              className="post-content"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            ></div>
           </div>
-        </div>
-        <div className="comments">
-          <h3>Comments</h3>
-          <form onSubmit={postNewComment} method="post">
-            <input
-              type="text"
-              name="comment"
-              id="comment"
-              onChange={handleChange}
-              value={comment}
-            />{" "}
-            <button type="submit">Add Comment</button>
-          </form>
-          {post.comments?.map((comment, index) => (
-            <div className="comment-item" key={index}>
-              <span className="comment-content">{comment.content}</span>
-              <span className="comment-time">{comment.createdAt}</span>
-              <span className="comment-author">
-                {comment.user?.username || "Anonymous"}
-              </span>
-            </div>
-          ))}
+          <div className="comments">
+            <h3>Comments</h3>
+            <form onSubmit={postNewComment} method="post">
+              <input
+                type="text"
+                name="comment"
+                id="comment"
+                onChange={handleChange}
+                value={comment}
+              />{" "}
+              <button type="submit">Add Comment</button>
+            </form>
+            {post.comments?.map((comment, index) => (
+              <div className="comment-item" key={index}>
+                <span className="comment-content">{comment.content}</span>
+                <span className="comment-time">{comment.createdAt}</span>
+                <span className="comment-author">
+                  {comment.user?.username || "Anonymous"}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

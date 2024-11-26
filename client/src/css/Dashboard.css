@@ -14,6 +14,22 @@
   align-items: center;
 }
 
+.new-post-btn {
+  padding: 0.25rem 1rem;
+  color: rgb(92, 92, 99);
+  border-radius: 0.25rem;
+  border: 2px solid transparent;
+  background-color: #ffe9bc;
+  transition: all 300ms ease;
+}
+
+.new-post-btn:hover {
+  color: rgb(92, 92, 99);
+  background-color: hsl(40, 100%, 80%);
+
+  border: 2px solid hsl(40, 100%, 77%);
+}
+
 .user-post-container {
   width: 100%;
   display: flex;
@@ -23,7 +39,8 @@
 
 .user-posts {
   padding: 1rem;
-  border: 1px solid black;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .post-title {
@@ -37,22 +54,33 @@
   color: rgb(224, 168, 28);
 }
 
+.action-buttons {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
 .edit-post-btn,
 .delete-btn,
 .confirm-delete-btn {
   border-radius: 0.25rem;
-  padding: 0.25rem;
+  padding: 5px;
   margin: 0;
 }
 
+.user-posts {
+  display: flex;
+  justify-content: space-between;
+}
+
 .user-posts img {
-  padding: 0 0.25rem;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 
 .delete-btn {
-  background-color: rgb(251, 207, 215);
+  background-color: rgba(251, 207, 215, 0);
+  transition: all 300ms ease;
 }
 
 .confirm-delete-btn {
@@ -65,10 +93,30 @@
 }
 
 .edit-post-btn {
-  background-color: hsl(167, 40%, 80%);
-  transition: border-color 0.25s;
+  background-color: hsla(0, 0%, 100%, 0);
+  transition: all 300ms ease;
 }
 
 .edit-post-btn:hover {
   border-color: #41a79d;
+}
+
+.published-status {
+  font-family: sans-serif;
+  padding: 0.25rem 0.6rem;
+  text-transform: uppercase;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px;
+  letter-spacing: 1px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  margin-right: 2rem;
+}
+
+.published {
+  background-color: #c7f1c370;
+}
+
+.not-published {
+  background-color: rgba(234, 234, 234, 0.543);
 }

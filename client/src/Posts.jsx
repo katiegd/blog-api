@@ -73,7 +73,7 @@ const Posts = () => {
                   <div className="post-tags">
                     {post.tags.map((tag, tagIndex) => (
                       <span className="tag" key={tagIndex}>
-                        #{tag}
+                        ≈ #{tag}
                       </span>
                     ))}
                   </div>
