@@ -51,7 +51,7 @@ const Posts = () => {
   return (
     <>
       <div className="container">
-        <div className="post-container-wrapper">
+        <div className="container-wrapper">
           <h2>Posts</h2>
           <div className="post-container">
             {error ? (
@@ -73,7 +73,7 @@ const Posts = () => {
                   <div className="post-tags">
                     {post.tags.map((tag, tagIndex) => (
                       <span className="tag" key={tagIndex}>
-                        ≈ #{tag}
+                        #{tag}
                       </span>
                     ))}
                   </div>

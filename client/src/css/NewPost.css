@@ -1,0 +1,57 @@
+.body-content {
+  width: 100%;
+}
+
+.new-post-form input {
+  width: 100%;
+}
+
+.tags-note {
+  width: fit-content;
+  font-family: sans-serif;
+  background-color: #ffe9bc79;
+  padding: 0.25rem 0.4rem;
+  text-transform: uppercase;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px;
+  letter-spacing: 1px;
+  font-size: 0.6rem;
+  font-weight: 600;
+}
+
+label {
+  margin-top: 1rem;
+}
+
+.publish-checkbox {
+  margin-top: 2rem;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+}
+
+.publish-checkbox label {
+  margin-top: 0;
+}
+
+.publish-checkbox input {
+  width: 20px;
+  height: 20px;
+}
+
+.new-post-form button {
+  margin-top: 2rem;
+  width: fit-content;
+  padding: 1rem 2rem;
+  color: rgb(92, 92, 99);
+  border-radius: 0.25rem;
+  border: 2px solid transparent;
+  background-color: #ffe9bc;
+  transition: all 300ms ease;
+}
+
+.new-post-form button:hover {
+  color: rgb(92, 92, 99);
+  background-color: hsl(40, 100%, 80%);
+
+  border: 2px solid hsl(40, 100%, 77%);
+}

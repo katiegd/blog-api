@@ -3,6 +3,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 
 import QuillEditor from "./QuillEditor";
 import Quill from "quill";
+import "./css/NewPost.css";
 
 const NewPost = () => {
   const navigate = useNavigate();
@@ -89,43 +90,56 @@ const NewPost = () => {
 
   return (
     <div className="container">
-      <form onSubmit={handleSubmit} className="sign-up-form">
-        <label htmlFor="title">Post Title:</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          value={title}
-          onChange={handleChange}
-        />
-        <QuillEditor
-          ref={quillRef}
-          readOnly={readOnly}
-          onSelectionChange={setRange}
-          onTextChange={setLastChange}
-          id="content"
-          name="content"
-        />
-        <label htmlFor="tags">Tags:</label>
-        <input
-          type="text"
-          name="tags"
-          id="tags"
-          value={tags}
-          onChange={handleChange}
-        />
-        <label htmlFor="published">Publish?:</label>
-        <input
-          type="checkbox"
-          name="published"
-          id="published"
-          checked={published}
-          onChange={handleCheckbox}
-        />
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Submitting..." : "Submit"}
-        </button>
-      </form>{" "}
+      <div className="container-wrapper">
+        <h2>New Post</h2>
+        <form onSubmit={handleSubmit} className="new-post-form">
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            value={title}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="post-body">Body:</label>
+          <QuillEditor
+            ref={quillRef}
+            readOnly={readOnly}
+            onSelectionChange={setRange}
+            onTextChange={setLastChange}
+            id="content"
+            name="content"
+            className="body-content"
+          />
+          <label htmlFor="tags">Tags: </label>
+          <input
+            type="text"
+            name="tags"
+            id="tags"
+            value={tags}
+            onChange={handleChange}
+          />
+          <div className="tags-note">Separate tags with commas.</div>
+          <div className="publish-checkbox">
+            <label htmlFor="published">Publish:</label>
+            <input
+              type="checkbox"
+              name="published"
+              id="published"
+              checked={published}
+              onChange={handleCheckbox}
+            />
+          </div>
+          <div className="tags-note">
+            Unpublished articles will be saved as drafts.
+          </div>
+
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </button>
+        </form>{" "}
+      </div>
     </div>
   );
 };

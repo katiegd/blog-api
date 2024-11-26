@@ -31,7 +31,6 @@ const Navbar = ({ userLoggedIn, userData, logOut }) => {
               <a href="/" onClick={handleLogout}>
                 Log Out
               </a>{" "}
-              {name && <h4>{name}</h4>}{" "}
             </>
           ) : (
             <>
