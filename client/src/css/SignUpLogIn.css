@@ -27,6 +27,17 @@
 }
 
 form button {
-  width: 100%;
-  margin-top: 10px;
+  margin-top: 1rem;
+  padding: 0.25rem 1rem;
+  color: rgb(92, 92, 99);
+  border-radius: 0.25rem;
+  border: 2px solid transparent;
+  background-color: #ffe9bc;
+  transition: all 300ms ease;
+}
+
+form button:hover {
+  color: rgb(92, 92, 99);
+  background-color: hsl(40, 100%, 80%);
+  border: 2px solid hsl(40, 100%, 77%);
 }
