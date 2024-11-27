@@ -29,7 +29,7 @@ export default function Layout() {
     setUserLoggedIn(false);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setUserData({ r });
+    setUserData({});
     navigate("/");
   }
 

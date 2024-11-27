@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useLayoutEffect, useRef } from "react";
 import Quill from "quill";
-import "../dist/quill.snow.css";
+import "../src/css/quill.snow.css";
 
 // Editor is an uncontrolled React component
 const QuillEditor = forwardRef(
