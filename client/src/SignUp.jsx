@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import "../src/css/SignUpLogIn.css";
 
 const SignUp = () => {
@@ -9,6 +9,7 @@ const SignUp = () => {
   const [password2, setpassword2] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [error, setError] = useState(null);
+  const { BASE_URL } = useOutletContext();
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -25,7 +26,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/signup", {
+      const response = await fetch(`${BASE_URL}/signup`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
