@@ -91,7 +91,9 @@ const SignUp = () => {
           ) : null}
           {error && Array.isArray(error) ? (
             <ul>
-              error.map((err, index) => (<li key={index}>{err.msg}</li>))
+              {error.map((err, index) => (
+                <li key={index}>{err.msg}</li>
+              ))}
             </ul>
           ) : null}
           <button type="submit">Submit</button>
