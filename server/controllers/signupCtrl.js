@@ -42,7 +42,6 @@ async function signUpUserPost(req, res, next) {
   try {
     const password = await bcrypt.hash(plainPassword, 10);
     const user = await db.createUser(username, password);
-    console.log("user created!");
     res.send(user);
   } catch (err) {
     res.status(500).send({ message: "Error signing up", errors: err });

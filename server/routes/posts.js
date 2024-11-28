@@ -6,7 +6,11 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const posts = await db.getAllPosts();
-    res.send(posts);
+    console.log(posts);
+    if (posts.length === 0) {
+      return res.status(204).send();
+    }
+    res.json(posts);
   } catch (err) {
     console.error(err);
   }

@@ -18,7 +18,10 @@ const Posts = () => {
           },
           credentials: "include",
         });
+
         if (!response.ok) {
+          const errorText = await response.text();
+          setError(errorText);
           throw new Error("Failed to fetch posts.");
         }
         const data = await response.json();
