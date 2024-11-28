@@ -6,7 +6,6 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const posts = await db.getAllPosts();
-    console.log(posts);
     if (posts.length === 0) {
       return res.status(204).send();
     }
@@ -31,7 +30,6 @@ router.get("/:postId", async (req, res) => {
 });
 
 router.post("/:postId/new-comment", async (req, res) => {
-  console.log(req.body);
   const userId = req.body.userId || null;
   const postId = parseInt(req.params.postId);
   const comment = req.body.content;
